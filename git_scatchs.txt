@@ -1,0 +1,63 @@
+GIT USING COURSE
+
+git --version   //To see git version
+
+git init		// To initialize git
+
+git				// To see git helps
+
+touch index.html // To add a file in directory
+
+git add . 		// It add all the update to directory
+
+git add . routes/web.php		// It add a single file to directory
+
+git commit -m "Add feature 1" //Commit is used to save the time of the update
+
+git config --global user.email "you@example.com"
+git config --global user.name "Your Name"
+
+git log
+
+git reset --hard 9999959i5i5ii5i5 //even the update is rested
+git reset  9999959i5i5ii5i5		// Only the commit is reseted the files keeps the same	
+
+ls -ls  //Not Git but linux bush, to show files in a diretory
+
+rm -rf fileName.extension //Will remove a file, again not a git command its a linux prompt
+
+git checkout -b newBranchName  // To create a new Branch
+
+git checkout branchName     //To change between branchs
+
+git merge branchName		//To merge commits from another branchName
+
+git branch -d branchName	// To delete a branch when you don´t need it anymore
+
+git clone https://github.com/dioneSky/gitcourse.git //Clone to a gitHub repository
+
+git push origin master       // To push file on repository online
+
+git pull 					//To update the changes made online to your host
+
+
+Branch what is that for ?
+
+
+					1							2
+Alpha  0.1			Master						Alphatesting
+Beta   0.1			NewFuncionalityBeta			BetaApp
+deploy 0.1			DeployedApp					Master
+
+Rudolph Murdock stock exchange
+
+  	
+
+
+
+
+
+
+
+
+

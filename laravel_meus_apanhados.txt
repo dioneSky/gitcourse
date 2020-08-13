@@ -1,0 +1,323 @@
+php artisan --version     //To check laravel version
+
+composer update    //To update laravel version	
+
+composer require nesbot/carbon:^2.0   //Update Carbon when updating laravel is failing
+
+composer create-project laravel/laravel onetoone --prefer-dist (Cuidado com o slash tem de ser este "/" senão dá um erro no download)
+
+Ao migrar tabela se der erro do specified length corrija com isto no AppServiceProvider.php
+
+	use Illuminate\Support\Facades\Schema;
+
+	public function boot()
+	{
+		Schema::defaultStringLength(191);
+	}
+
+	
+php artisan make:migration create_slider_table
+
+php artisan make:migration add_tag_id_column_to_taggable_table --table=taggable
+
+User::create(['name'=>'Diogo Luis','email'='dione@yahoo.com','password'=>bcrypt("123")]);
+
+dd($user); //Die Dump function to see data format
+
+php artisan make:model Adress -m
+
+php artisan make:migration create_role_user_table --create=role_user
+
+php artisan migrate (this is to migrate migrations to database)
+
+php artisan migrate {
+
+  migrate:install      Create the migration repository
+  migrate:refresh      Reset and re-run all migrations
+  migrate:reset        Rollback all database migrations
+  migrate:rollback     Rollback the last database migration
+  migrate:status       Show the status of each migration
+  
+  }
+php artisan make:migration       Create a new migration file
+
+/**********************************************/
+	TINKER
+/**********************************************/
+
+php artisan tinker
+
+$post = App\Post::create(['title'=>'Este titulo veio apartir do tinker','content'=>'PHP content from tinker']);
+
+$post = new App\Post
+
+$post->title = 'New Title for this object'
+
+$post->save();
+
+/*******************/
+	FIM DO TINKER
+/*******************/
+
+
+Route::get('/attach/{id}', function($id){
+
+    $user = User::findOrFail($id);
+
+    $user->roles()->attach(4);
+
+});
+
+Route::get('/detach/{id}', function($id){
+
+    $user = User::findOrFail($id);
+
+    $user->roles()->detach(4);
+
+});
+
+Route::get('/sync/{id}', function($id){
+
+    $user = User::findOrFail($id);
+
+    $user->roles()->sync([4,5]);
+
+});
+
+Route::get('/carrinho_produto/factura/{carrinho_id}', 'CarrinhoProdutoController@gerarFactura');
+
+http://192.168.43.177:8000/codigo/importar/{"resultList":[{"_id":58,"codigo":"1001710385059","data":"","estado":0,"operadora":2},{"_id":160,"codigo":"1007816015429","data":"","estado":0,"operadora":2},{"_id":85,"codigo":"1019416015387","data":"","estado":0,"operadora":2}]}
+
+composer update ( when installing laravelcollective/html) in file composer.json
+"laravelcollective/html": "5.2.*"
+
+php artisan make:auth   (Para fazer um login system rapidamente)
+
+php artisan make:middleware RoleMiddleware
+
+php artisan down
+php artisan up
+
+php artisan make:controller --resource UserController
+
+php artisan vendor:publish    //Its when youre configuring yara DataTables
+
+php artisan serve --host=192.168.43.177
+
+If your´re running your android app and you need to send a post request to your laravel server api
+without sending the csrf token you need to add URIs expetions  inside the class of
+file VerifyCsrfToken.php like this:
+
+ protected $except = [
+        //
+        'categoria/*','sinal/*',
+    ];
+	
+in android development If you´re sending request from your virtual device to your local server PHP and its ok, receiveng the http response.code() 200,
+But from your real device your´re receving the http response.code() 403 (mean forbbiden) you need to run your server php project to see what port will it be listing to
+So you will use this port when your sending your url like for example http://192.168.43.177:8000/
+
+
+For pdf export with MaatWebsite
+
+1 - composer require maatwebsite/excel
+2 - open config/app.php and add Maatwebsite\Excel\ExcelServiceProvider::class,
+and add 'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+
+if you won´t to publish it use : php artisan vendor:publish
+
+php artisan make:export faturacaoExports --model=Faturacao
+
+For excel export 
+
+
+$allTasks = new Collection();
+
+$tasks = array(
+    [
+        'id' => 1, 
+        'task' => 'go to the store', 
+        'task_type' => 'errand', 
+        'comments' => 'no fun'
+    ],
+    [
+        'id' => 2, 
+        'task' => 'drink beer', 
+        'task_type' => 'not an errand', 
+        'comments' => 'fun'
+    ]);
+
+foreach ($tasks as $task) {
+    $allTasks->push(([
+        'id' => $task['id'], 
+        'task_type' => $task['task_type'], 
+        'comments' => $task['comments']
+        ]));
+}
+
+php artisan key:generate
+cp .env.example .env
+
+composer self-update
+composer require barryvdh/laravel-dompdf
+Barryvdh\DomPDF\ServiceProvider::class,
+'PDF' => Barryvdh\DomPDF\Facade::class,
+
+/////////////////////////////////////////////
+CONFIGURE VIRTUAL MACHINE
+/////////////////////////////////////////////
+
+
+C:\Windows\System32\drivers\etc\hosts
+127.0.0.1  na-via.localhost
+
+C:\xampp\apache\conf\extra\httpd-vhosts.conf
+
+<VirtualHost *:80>
+    DocumentRoot "C:/xampp/htdocs/na-via/public"
+    ServerAdmin admin@localhost
+    ServerName na-via.localhost
+    ServerAlias www.na-via.localhost
+
+    <Directory "C:/xampp/htdocs/na-via/public">
+       AllowOverride All
+       Options Indexes FollowSymLinks
+
+       Require local
+       # if you want access from other pc's on your local network
+       #Require ip 192.168.1
+       # Only if you want the world to see your site
+       #Require all granted
+    </Directory>
+</VirtualHost>
+
+/////////////////////////////////////////////
+TERMINO DO CONFIGURE VIRTUAL MACHINE
+/////////////////////////////////////////////
+
+
+<VirtualHost *:80>
+    DocumentRoot "C:/xampp/htdocs/na-via/public"
+    ServerAdmin admin@localhost
+    ServerName na-via.localhost
+    ServerAlias www.na-via.localhost
+
+    <Directory "C:/xampp/htdocs/na-via/public">
+       AllowOverride All
+       Options Indexes FollowSymLinks
+
+       Require local
+       # if you want access from other pc's on your local network
+       #Require ip 192.168.1
+       # Only if you want the world to see your site
+       #Require all granted
+    </Directory>
+</VirtualHost>
+
+<VirtualHost *:80>
+    DocumentRoot "C:/xampp/htdocs/sinatrango_laravel/public"
+    ServerAdmin admin@localhost
+    ServerName sinatrango_laravel.localhost
+    ServerAlias www.sinatrango_laravel.localhost
+
+    <Directory "C:/xampp/htdocs/sinatrango_laravel/public">
+       AllowOverride All
+       Options Indexes FollowSymLinks
+
+       Require local
+       # if you want access from other pc's on your local network
+       #Require ip 192.168.1
+       # Only if you want the world to see your site
+       #Require all granted
+    </Directory>
+</VirtualHost>
+
+<VirtualHost *:80>
+    DocumentRoot "C:/xampp/htdocs/jikulumessu/public"
+    ServerAdmin admin@localhost
+    ServerName jikulumessu.localhost
+    ServerAlias www.jikulumessu.localhost
+
+    <Directory "C:/xampp/htdocs/jikulumessu/public">
+       AllowOverride All
+       Options Indexes FollowSymLinks
+
+       Require local
+       # if you want access from other pc's on your local network
+       #Require ip 192.168.1
+       # Only if you want the world to see your site
+       #Require all granted
+    </Directory>
+</VirtualHost>
+
+/**************************************************************************/
+
+Syntax
+• php artisan [command] [options] [arguments]
+Parameters
+Command Description
+clear-compiled Remove the compiled class file
+down Put the application into maintenance mode
+env Display the current framework environment
+help Displays help for a command
+list Lists commands
+migrate Run the database migrations
+optimize Optimize the framework for better performance
+serve Serve the application on the PHP development server
+tinker Interact with your application
+up Bring the application out of maintenance mode
+app:name Set the application namespace
+auth:clear-resets Flush expired password reset tokens
+cache:clear Flush the application cache
+cache:table Create a migration for the cache database table
+config:cache Create a cache file for faster configuration loading
+config:clear Remove the configuration cache file
+db:seed Seed the database with records
+event:generate Generate the missing events and listeners based on registration
+key:generate Set the application key
+https://riptutorial.com/ 6
+Command Description
+make:auth Scaffold basic login and registration views and routes
+make:console Create a new Artisan command
+make:controller Create a new controller class
+make:event Create a new event class
+make:job Create a new job class
+make:listener Create a new event listener class
+make:middleware Create a new middleware class
+make:migration Create a new migration file
+make:model Create a new Eloquent model class
+make:policy Create a new policy class
+make:provider Create a new service provider class
+make:request Create a new form request class
+make:seeder Create a new seeder class
+make:test Create a new test class
+migrate:install Create the migration repository
+migrate:refresh Reset and re-run all migrations
+migrate:reset Rollback all database migrations
+migrate:rollback Rollback the last database migration
+migrate:status Show the status of each migration
+queue:failed List all of the failed queue jobs
+queue:failed-table Create a migration for the failed queue jobs database table
+queue:flush Flush all of the failed queue jobs
+queue:forget Delete a failed queue job
+queue:listen Listen to a given queue
+queue:restart Restart queue worker daemons after their current job
+https://riptutorial.com/ 7
+Command Description
+queue:retry Retry a failed queue job
+queue:table Create a migration for the queue jobs database table
+queue:work Process the next job on a queue
+route:cache Create a route cache file for faster route registration
+route:clear Remove the route cache file
+route:list List all registered routes
+schedule:run Run the scheduled commands
+session:table Create a migration for the session database table
+vendor:publish Publish any publishable assets from vendor packages
+view:clear Clear all compiled view files
+
+
+
+
+
+
+
